@@ -15,3 +15,5 @@ https://github.com/adafruit/Adafruit_CircuitPython_MotorKit
 pip3 install adafruit-circuitpython-motorkit
 ```
 Open CV
+
+Run with python3
