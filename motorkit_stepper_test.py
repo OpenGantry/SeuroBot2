@@ -1,7 +1,5 @@
+from Adafruit_CircuitPython_Motor.adafruit_motor import stepper
 from Adafruit_CircuitPython_MotorKit.adafruit_motorkit import MotorKit
-#from adafruit_motorkit import MotorKit
-#from adafruit_motor import stepper
-from Adafruit_CircuitPython_MotorKit.adafruit_motor import stepper
 
 kit = MotorKit()
 

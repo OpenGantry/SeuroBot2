@@ -1,0 +1,11 @@
+[submodule "Adafruit_CircuitPython_ServoKit"]
+	path = Adafruit_CircuitPython_ServoKit
+	url = https://github.com/adafruit/Adafruit_CircuitPython_ServoKit
+[submodule "Adafruit_CircuitPython_Motor"]
+	path = Adafruit_CircuitPython_Motor
+	url = https://github.com/adafruit/Adafruit_CircuitPython_Motor
+[submodule "Adafruit_CircuitPython_MotorKit"]
+	path = Adafruit_CircuitPython_MotorKit
+	url = https://github.com/adafruit/Adafruit_CircuitPython_MotorKit
+
+

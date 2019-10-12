@@ -25,6 +25,9 @@
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\repos\SeuroBot2\Adafruit_CircuitPython_MotorKit" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\repos\SeuroBot2" />
     </key>
