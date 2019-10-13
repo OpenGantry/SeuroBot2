@@ -48,6 +48,8 @@ class Stepper(Axis):
             self.Number = Number
             self.Mode = stepper.SINGLE
             self.Count=0
+            self.UserUnits=super().UserUnits
+
     def MoveSteps(self,Steps):
         Steps = abs(Steps)
         if (Steps > 0):
