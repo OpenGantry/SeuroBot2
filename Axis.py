@@ -79,11 +79,11 @@ class Stepper(Axis):
         if(self.Number==0):
             kit.stepper1.release()
             for i in range(Steps):
-                kit.stepper1.onestep(Direction=moveDirection, Mode=self.Mode)
+                kit.stepper1.onestep(direction=moveDirection, style=self.Mode)
         elif(self.Number==1):
             kit.stepper2.release()
             for i in range(Steps):
-                kit.stepper2.onestep(Direction=moveDirection, Mode=self.Mode)
+                kit.stepper2.onestep(direction=moveDirection, style=self.Mode)
 
         self.Count+=(Direction*Steps)#update our current position
 
