@@ -6,5 +6,5 @@ import time
 
 kit = MotorKit(0x6f)
 
-kit.stepper1.relsase()
-kit.stepper2.relsase()
+kit.stepper1.release()
+kit.stepper2.release()

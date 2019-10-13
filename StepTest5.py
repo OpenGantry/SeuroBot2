@@ -7,12 +7,10 @@ import time
 kit = MotorKit(0x6f)
 
 NotDone = True
-myRange=400
+myRange=200
 delay=3
 
-myDirection=stepper.FORWARD
-myStyle=stepper.SINGLE
 
 for i in range(myRange):
-    kit.stepper2.onestep(myDirection, myStyle)
+    kit.stepper2.onestep(direction=stepper.FORWARD, style=stepper.SINGLE)
 

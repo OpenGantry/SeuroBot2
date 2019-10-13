@@ -4,7 +4,7 @@ from adafruit_motorkit import MotorKit
 
 import time
 
-kit = MotorKit(0x6f,None,200)
+kit = MotorKit(0x6f,None,2)
 
 NotDone = True
 myRange=400
