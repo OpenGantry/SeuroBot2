@@ -22,15 +22,20 @@ class AxisType(Enum):
 
 class Axis:
 
-    def __init__(self, Number=0):
+    def __init__(self, Number=0,Type=AxisType.Stepper):
         self.Number = Number
         self.UserUnits = 1
+        if(Type==AxisType.Stepper):
+            self.SubAxis=Stepper(self.Number)
+
     def MoveSteps(self):
-        return self.MoveSteps()
+        return self.SubAxis.MoveSteps()
     def Stop(self):
-        return self.MoveSteps()
+        return self.SubAxis.MoveSteps()
     def MoveDistance(self,Distance):
-        return self.MoveDistance(Distance)
+        return self.SubAxis.MoveDistance(Distance)
+
+    #Super Class Functions
     def Error(self,Message):
         print("Error: "+Message)
         sys.exit()
