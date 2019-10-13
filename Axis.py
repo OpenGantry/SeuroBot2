@@ -28,8 +28,8 @@ class Axis:
         if(Type==AxisType.Stepper):
             self.SubAxis=Stepper(self.Number)
 
-    def MoveSteps(self):
-        return self.SubAxis.MoveSteps()
+    def MoveSteps(self,Steps,Direction=None):
+        return self.SubAxis.MoveSteps(Steps,Direction)
     def Stop(self):
         return self.SubAxis.MoveSteps()
     def MoveDistance(self,Distance):
@@ -54,21 +54,25 @@ class Stepper(Axis):
 
     def SetUserUnits(self,UserUnits):
         self.UserUnits=UserUnits
-    def MoveSteps(self,Steps):
-        Steps = abs(Steps)
-        if (Steps > 0):
-            Direction = 1
-        elif (Steps < 0):
-            Direction = -1
-        self.MoveSteps(Direction, Steps)
 
-    def MoveSteps(self,Direction,Steps):
-        if(Direction>0):
-            moveDirection=stepper.FORWARD
-        elif(Direction<0):
-            moveDirection=stepper.REVERSE
+    def MoveSteps(self,Steps,Direction=None):
+        if Direction is None:
+
+            if (Steps > 0):
+                moveDirection=stepper.FORWARD
+            elif (Steps < 0):
+                moveDirection=stepper.REVERSE
+            else:
+                super().Warn("Steps = 0")
         else:
-            super().Error("Invalid Direction")
+            if(Direction>0):
+                moveDirection=stepper.FORWARD
+            elif(Direction<0):
+                moveDirection=stepper.REVERSE
+            else:
+                super().Error("Invalid Direction")
+
+        Steps = abs(Steps)
 
         if(self.Number==0):
             kit.stepper1.release()
@@ -79,7 +83,7 @@ class Stepper(Axis):
             for i in range(Steps):
                 kit.stepper2.onestep(moveDirection, self.Mode)
 
-        self.Count+=(Direction*Steps)
+        self.Count+=(Direction*Steps)#update our current position
 
     def GetLoc(self):
         return self.Count/self.UserUnits
