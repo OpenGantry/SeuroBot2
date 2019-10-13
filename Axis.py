@@ -59,8 +59,10 @@ class Stepper(Axis):
         if Direction is None:
 
             if (Steps > 0):
+                Direction=1
                 moveDirection=stepper.FORWARD
             elif (Steps < 0):
+                Direction=-1
                 moveDirection=stepper.REVERSE
             else:
                 super().Warn("Steps = 0")
