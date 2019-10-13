@@ -1,7 +1,11 @@
 """Simple test for using adafruit_motorkit with a stepper motor"""
 from adafruit_motorkit import MotorKit
 
-kit = MotorKit()
+import time
 
-for i in range(100):
-    kit.stepper1.onestep()
+kit = MotorKit(0x6f)
+
+for i in range(200):
+    #time.sleep(0.1)
+    print(i)
+    kit.stepper2.onestep()

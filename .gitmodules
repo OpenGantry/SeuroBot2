@@ -9,3 +9,6 @@
 	url = https://github.com/adafruit/Adafruit_CircuitPython_MotorKit
 
 
+[submodule "Adafruit_CircuitPython_Bundle"]
+	path = Adafruit_CircuitPython_Bundle
+	url = https://github.com/adafruit/Adafruit_CircuitPython_Bundle
