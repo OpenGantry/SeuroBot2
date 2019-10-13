@@ -29,8 +29,8 @@ class Axis:
         return self.MoveSteps()
     def Stop(self):
         return self.MoveSteps()
-    def MoveDistance(self):
-        return self.MoveDistance()
+    def MoveDistance(self,Distance):
+        return self.MoveDistance(Distance)
     def Error(self,Message):
         print("Error: "+Message)
         sys.exit()
