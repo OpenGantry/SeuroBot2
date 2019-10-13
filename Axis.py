@@ -34,6 +34,8 @@ class Axis:
         return self.SubAxis.MoveSteps()
     def MoveDistance(self,Distance):
         return self.SubAxis.MoveDistance(Distance)
+    def SetUserUnits(self,UserUnits):
+        self.SubAxis.SetUserUnits(UserUnits)
 
     #Super Class Functions
     def Error(self,Message):
@@ -48,8 +50,10 @@ class Stepper(Axis):
             self.Number = Number
             self.Mode = stepper.SINGLE
             self.Count=0
-            self.UserUnits=super().UserUnits
+            self.UserUnits=1
 
+    def SetUserUnits(self,UserUnits):
+        self.UserUnits=UserUnits
     def MoveSteps(self,Steps):
         Steps = abs(Steps)
         if (Steps > 0):
