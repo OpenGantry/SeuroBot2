@@ -1,18 +1,17 @@
 from Axis import *
 
-Class Location:
-
-
-def __init__(self,x,y,z):
-    X = x
-    Y = y
-    X = z
+class Location:
+    def __init__(self,x=0,y=0,z=0):
+        X = x
+        Y = y
+        X = z
 
 class Gantry:
     def __init__():
         X_Axis=Axis(0)
         Y_Axis=Axis(1)
         X_Axis=Axis(2)
+
     def GetX(self):
         self.X_Axis.GetLoc()
     def GetY(self):
@@ -20,21 +19,31 @@ class Gantry:
     def GetZ(self):
         self.Z_Axis.GetLoc()
 
-    def MoveXY(self,xDelta,yDelta):
+    def ZeroXY(self):
+        self.X_Axis.Zero()
+        self.Y_Axis.Zero()
+
+    def MoveDeltaXY(self,xDelta,yDelta):
         self.X_Axis.MoveDistance(xDelta)
         self.Y_Axis.MoveDistance(yDelta)
-    def MoveXYZ(self,xDelta,yDelta,zDelta):
+
+    def MoveDeltaXYZ(self,xDelta,yDelta,zDelta):
         self.X_Axis.MoveDistance(xDelta)
         self.Y_Axis.MoveDistance(yDelta)
         self.Z_Axis.MoveDistance(zDelta)
 
-    def MoveZ(self,zDelta):
+    def MoveDeltaZ(self,zDelta):
         self.Z_Axis.MoveDistance(zDelta)
 
-    def GoTO(self,xLoc,yLoc):
+    def MoveLocXY(self,xLoc,yLoc):
+        self.X_Axis.MoveLocation(xLoc)
+        self.Y_Axis.MoveLocation(yLoc)
 
 
-    def GoTo(self):
+    def MoveLocXY(self,Location):
+        self.MoveLocXY(Location.X,Location.Y)
+
+
 
 
 
@@ -43,11 +52,10 @@ class GridType(Enum):
     Standard = 0
     Compact = 1
 
-class Grid:
+class XYGrid:
     def __init__(self,NumberCol=16,NumberRow=16,type=GridType.Standard):
-        self.xLoc
-        self.yLoc
-        self.zLoc
+        self.xLoc=0
+        self.yLoc=0
         if(type==GridType.Standard):
             self.UserUnits=16#cm
         elif(type==GridType.Compact):
