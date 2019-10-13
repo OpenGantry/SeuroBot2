@@ -7,7 +7,7 @@ class Location:
         X = z
 
 class Gantry:
-    def __init__():
+    def __init__(self):
         X_Axis=Axis(0)
         Y_Axis=Axis(1)
         X_Axis=Axis(2)
