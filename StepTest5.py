@@ -7,11 +7,14 @@ import time
 kit = MotorKit(0x6f)
 
 NotDone = True
-myRange=200*2
+myRange=200/2
 delay=1.0/myRange
-
+n=8
+delay=.05
 
 for i in range(myRange):
-   # time.sleep(delay)
+    print("i: ",i)
+    time.sleep(delay)
+    kit.stepper2.release()
     kit.stepper2.onestep(direction=stepper.FORWARD, style=stepper.SINGLE)
 

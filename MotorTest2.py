@@ -8,7 +8,7 @@ kit = MotorKit(0x6f)
 
 NotDone = True
 myRange=200
-delay=10
+delay=4
 
 
 
