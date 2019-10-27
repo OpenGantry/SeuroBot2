@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7c79ed0-238d-43c5-8136-4b208266c36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/GantryJog.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IOman.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MotorTest2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MotorTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old/MotorTest1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StepTest2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old/StepTest2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StepTest3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old/StepTest3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StepTest4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old/StepTest4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorkit_stepper_simpletest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old/motorkit_stepper_simpletest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorkit_stepper_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old/motorkit_stepper_test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,6 +20,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProjectId" id="1S7KBgWtrFcknK2mziTVSj1RNmj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -36,13 +30,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\repos\SeuroBot2\Old" />
-      <recent name="C:\repos\SeuroBot2" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\repos\SeuroBot2" />
       <recent name="C:\repos\SeuroBot2\Adafruit_CircuitPython_MotorKit" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\repos\SeuroBot2" />
+      <recent name="C:\repos\SeuroBot2\Old" />
     </key>
   </component>
   <component name="RunDashboard">
