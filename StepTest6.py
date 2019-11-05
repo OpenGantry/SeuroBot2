@@ -7,15 +7,17 @@ import time
 kit = MotorKit(0x6f)
 
 NotDone = True
-myRange=200/2
+myRange=200
 delay=1.0/myRange
-tests=20
-delay=.05
+tests=30
+delay=.2
+myRange=100
 for n in range(tests):
     print("Test: ",n)
-    delay+=.01
-    print(*"delay = ", delay)
-    delay(1)
+    delay=delay*.75
+    print("delay = ", delay)
+    time.sleep(1)
+
     for i in range(myRange):
         print("i: ",i)
         time.sleep(delay)

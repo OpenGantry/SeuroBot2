@@ -48,8 +48,8 @@ while (True):
 		randomsteps = random.randint(10,50)
 		print("%d steps" % randomsteps)
 		st1 = threading.Thread(target=stepper_worker, args=(myStepper1, randomsteps, dir, stepstyles[random.randint(0,3)],))
-		st1.start()
-
+		#st1.start()
+        
 	if not st2.isAlive():
 		print("Stepper 2"),
 		randomdir = random.randint(0, 1)
