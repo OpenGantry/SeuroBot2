@@ -132,7 +132,7 @@ class Raspi_StepperMotor:
                               [0, 0, 1, 1],
                               [0, 0, 0, 1],
                               [1, 0, 0, 1] ]
-            coils = step2coils[int(self.currentste p /(self.MICROSTEP S /2))]
+            coils = step2coils[int(self.currentstep /(self.MICROSTEPS /2))]
 
         # print "coils state = " + str(coils)
         self.MC.setPin(self.AIN2, coils[0])
@@ -209,7 +209,7 @@ class Raspi_DCMotor:
             speed = 0
         if (speed > 255):
             speed = 255
-        self.MC._pwm.setPWM(self.PWMpin, 0, spee d *16)
+        self.MC._pwm.setPWM(self.PWMpin, 0, speed *16)
 
 class Raspi_MotorHAT:
     FORWARD = 1
@@ -243,9 +243,9 @@ class Raspi_MotorHAT:
     def getStepper(self, steps, num):
         if (num < 1) or (num > 2):
             raise NameError('MotorHAT Stepper must be between 1 and 2 inclusive')
-        return self.steppers[nu m -1]
+        return self.steppers[num -1]
 
     def getMotor(self, num):
         if (num < 1) or (num > 4):
             raise NameError('MotorHAT Motor must be between 1 and 4 inclusive')
-        return self.motors[nu m -1]
+        return self.motors[num -1]

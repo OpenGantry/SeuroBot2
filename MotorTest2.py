@@ -12,6 +12,6 @@ delay=4
 
 
 
-kit.motor2.throttle = 1.0
+kit.motor4.throttle = 0.3
 time.sleep(delay)
-kit.motor2.throttle = 0
+kit.motor4.throttle = 0

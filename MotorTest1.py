@@ -8,10 +8,10 @@ kit = MotorKit(0x6f)
 
 NotDone = True
 myRange=200
-delay=10
+delay=5
 
 
 
-kit.motor1.throttle = 1.0
+kit.motor4.throttle = 0.5
 time.sleep(delay)
-kit.motor1.throttle = 0
+kit.motor1.throttle = 0.0
