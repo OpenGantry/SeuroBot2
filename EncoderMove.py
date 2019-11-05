@@ -7,8 +7,8 @@ import pigpio
 import rotary_encoder
 import time
 
-pid = PID(1, 0.1, 0.05, setpoint=0)
-pid.output_limits = (-1, 1)    # output value will be between 0 and 10
+pid = PID(.005, 0.01, 0.005, setpoint=0)
+pid.output_limits = (-.5, .5)    # output value will be between 0 and 10
 pid.sample_time = 0.01  # update every 0.01 seconds
 
 kit = MotorKit(0x6f)
@@ -29,15 +29,15 @@ def main():
     print("Hello World!")
     pi = pigpio.pi()
     decoder = rotary_encoder.decoder(pi, 7, 8, callback)
-
+    pid.setpoint=800
     while True:
 
         v = pos
         control = pid(v)  # compute new ouput from the PID according to the systems current value
-        print("Control: ", control)
+        print("Control: ", control, "Pos: ",pos)
         # feed the PID output to the system and get its current value
         # v = controlled_system.update(control)
-        kit.motor3.throttle = control
+        kit.motor4.throttle = control
 
 
 if __name__ == "__main__":
