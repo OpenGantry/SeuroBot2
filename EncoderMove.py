@@ -16,8 +16,6 @@ kit = MotorKit(0x6f)
 # assume we have a system we want to control in controlled_system
 #v = controlled_system.update(0)
 pos = 0
-decoder = rotary_encoder.decoder(pi, 7, 8, callback)
-pi = pigpio.pi()
 
 
 def callback(way):
@@ -29,6 +27,8 @@ def callback(way):
 
 def main():
     print("Hello World!")
+    pi = pigpio.pi()
+    decoder = rotary_encoder.decoder(pi, 7, 8, callback)
 
     while True:
 
