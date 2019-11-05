@@ -20,3 +20,4 @@ Run with python3
 
 PIGPI
 SIMPLEPID
+ python3 -m pip install simple-pid
