@@ -8,9 +8,9 @@ class Location:
 
 class Gantry:
     def __init__(self):
-        self.X_Axis=Axis(0)
-        self.Y_Axis=Axis(1)
-        self.X_Axis=Axis(2)
+        self.X_Axis=Axis(4,Motor)
+        self.Y_Axis=Axis(1,Motor)
+        self.Z_Axis=Axis(2,Stepper)
 
     def GetX(self):
         self.X_Axis.GetLoc()
