@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7c79ed0-238d-43c5-8136-4b208266c36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Nikolas_Gamarra.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GantryMove.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Axis.py" beforeDir="false" afterPath="$PROJECT_DIR$/Axis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gantry.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gantry.py" afterDir="false" />
@@ -32,13 +32,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\repos\SeuroBot2" />
-      <recent name="C:\repos\SeuroBot2\Adafruit_CircuitPython_MotorKit" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\repos\SeuroBot2" />
       <recent name="C:\repos\SeuroBot2\Old" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\repos\SeuroBot2" />
+      <recent name="C:\repos\SeuroBot2\Adafruit_CircuitPython_MotorKit" />
     </key>
   </component>
   <component name="RunDashboard">

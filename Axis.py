@@ -13,6 +13,10 @@ from enum import Enum
 import pigpio
 import rotary_encoder
 
+import RPi.GPIO as GPIO
+import time
+import threading
+
 MotorController = MotorKit(0x6f)
 
 
@@ -39,15 +43,24 @@ class ControllerType(Enum):
     PID = 1
 
 
+class LimitAction(Enum):
+    none = 0
+    Abort = 1
+    Disable = 2
+    NegDisable = 3
+    PosDisable = 4
+    Home = 5
+
+
 Count = 0
 
 
 class Axis:
 
-    def __init__(self, number=0, actuator=AxisType.Stepper, feedback=FeedbackType.QuadratureEncoder):
+    def __init__(self, number, axis_type, pos_lim_switch, neg_lim_switch, home_switch=None,
+                 feedback=FeedbackType.QuadratureEncoder, feedback_a=7, feedback_b=8):
         self.Number = number
         self.UserUnits = 1
-
         self.DebugMode = True
         self.Enabled = True
         self.ReleaseOnFinish = False
@@ -60,14 +73,71 @@ class Axis:
         self.CoarsePositionError = 5
         self.InFinePosition = False
         self.InCoarsePosition = False
+        self.NegativeTravelDisabled = False
+        self.PositiveTravelDisabled = False
 
-        if actuator == AxisType.Stepper:
+        if axis_type == AxisType.Stepper:
             self.SubAxis = _Stepper(self.Number)
-        if actuator == AxisType.Motor:
+        elif axis_type == AxisType.Motor:
             self.SubAxis = _Motor(self.Number)
+        else:
+            self.error("Unknown motor type.")
 
-        self.FeedbackDevice = Feedback(feedback)
+        if feedback != FeedbackType.none:
+            self.FeedbackDevice = Feedback(feedback, feedback_a, feedback_b)
+
         self.PositionController = PID(.005, 0.01, 0.005, setpoint=0)
+        """
+        GPIO.setup(pos_lim_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP);
+        GPIO.setup(pos_lim_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP);
+        GPIO.setup(home_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP);
+
+        GPIO.add_event_detect(pos_lim_switch, GPIO.BOTH, callback=self.pos_lim_callback)
+        GPIO.add_event_detect(neg_lim_switch, GPIO.BOTH, callback=self.neg_lim_callback)
+        GPIO.add_event_detect(home_switch, GPIO.BOTH, callback=self.home_callback)
+        """
+
+        self.NegLimit = IO(neg_lim_switch, True, LimitAction.NegDisable, self.limit_action)
+        self.PosLimit = IO(pos_lim_switch, True, LimitAction.PosDisable, self.limit_action)
+        self.HomeSwitch = IO(home_switch, True, LimitAction.none, self.limit_action)
+
+    def neg_lim_callback(self, input_pin):
+        print("Input on pin", input_pin)
+        current_state = self.NegLimit.get()
+        action = self.NegLimit.Action
+        if current_state:
+            if action == LimitAction.Disable:
+                self.Enabled = False
+            elif action == LimitAction.Home:
+                self.Home()
+            elif action == LimitAction.NegDisable:
+                self.NegativeTravelDisabled = current_state
+            elif action == LimitAction.PosDisable:
+                self.PositiveTravelDisabled = current_state
+            else:
+                self.error("Unknown limit action.")
+
+    def pos_lim_callback(self, input_pin):
+        print("Input on pin", input_pin)
+
+    def home_callback(self, input_pin):
+        print("Input on pin", input_pin)
+
+    def limit_action(self, input_pin):
+        print("Input on pin", input_pin)
+        current_state = self.NegLimit.get()
+        action = self.NegLimit.Action
+        if current_state:
+            if action == LimitAction.Disable:
+                self.Enabled = False
+            elif action == LimitAction.Home:
+                self.Home()
+            elif action == LimitAction.NegDisable:
+                self.NegativeTravelDisabled = current_state
+            elif action == LimitAction.PosDisable:
+                self.PositiveTravelDisabled = current_state
+            else:
+                self.error("Unknown limit action.")
 
     def move_velocity(self, velocity):
         return self.SubAxis.move_velocity(velocity)
@@ -98,15 +168,30 @@ class Axis:
 
 
 class _Motor(Axis):
-    def stop(self):
+    def __init__(self):
         if self.Number == 1:
-            MotorController.motor1.throttle = 0
+            self.LocalMotorController = MotorController.motor1
         elif self.Number == 2:
-            MotorController.motor2.throttle = 0
+            self.LocalMotorController = MotorController.motor2
         elif self.Number == 3:
-            MotorController.motor3.throttle = 0
+            self.LocalMotorController = MotorController.motor3
         elif self.Number == 4:
-            MotorController.motor4.throttle = 0
+            self.LocalMotorController = MotorController.motor4
+        else:
+            self.error("Axis must be 1-4 per shield")
+
+    def stop(self):
+        self.LocalMotorController.throttle = 0
+
+    def move_velocity(self, velocity):
+        self.error("Not Implemented")
+
+    def command(self,vel):
+        if self.Enabled:
+            if vel > self.PositiveCommandMinimum or vel < self.NegativeCommandMinimum:
+                if self.PositiveTravelDisabled and vel <0:
+                    if self.NegativeTravelDisabled and vel>0:
+                        self.LocalMotorController.throttle=vel
 
     def move_distance(self, distance):
         cycles_at_finish = 0
@@ -116,15 +201,7 @@ class _Motor(Axis):
         while not done:
 
             control = self.PositionController(Count)
-            if control > self.PositiveCommandMinimum or control < self.NegativeCommandMinimum:
-                if self.Number == 1:
-                    MotorController.motor1.throttle = control
-                elif self.Number == 2:
-                    MotorController.motor2.throttle = control
-                elif self.Number == 3:
-                    MotorController.motor3.throttle = control
-                elif self.Number == 4:
-                    MotorController.motor4.throttle = control
+            self.command(control)
 
             if not self.HoldOnFinish:
                 if target == Count:
@@ -226,23 +303,63 @@ class _Stepper(Axis):
 
 class Feedback:
 
-    def __init__(self, type=FeedbackType.QuadratureEncoder):
+    def __init__(self, type, pin_a, pin_b):
         self.Count = 0
-        if (type == FeedbackType.QuadratureEncoder):
+        self.encA = pin_a
+        self.encB = pin_b
+        self.Count
+        if type == FeedbackType.QuadratureEncoder:
             self.SubAxis = _QuadratureEncoder()
+        else:
+            self.error("Unknown feedback type.")
+
+    @staticmethod
+    def error(message):
+        print("Feedback - Error: " + message)
+        sys.exit()
+
+    @staticmethod
+    def warn(self, message):
+        print("Feedback - Warning : " + message)
 
 
-class _QuadratureEncoder:
+class _QuadratureEncoder(Feedback):
     def __init__(self):
         self.Count = 0
-        self.encA = 7
-        self.encB = 8
+
         pi = pigpio.pi()
         decoder = rotary_encoder.decoder(pi, self.encA, self.encB, self.callback)
 
-    def callback(way):
-        global Count
-        Count += way
+    def callback(self, way):
+        # global Count
+        self.Count += way
+
+
+class IO:
+    def __init__(self, pin, active_high, action, master_callback):
+        self.active_high = active_high
+        self.pin = pin
+        # self.super_cb=master_callback
+        self.action = action
+        if active_high:
+            GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN);
+            # GPIO.add_event_detect(pin, GPIO.BOTH, callback=self.callback())
+            GPIO.add_event_detect(pin, GPIO.BOTH, callback=master_callback)
+
+        else:
+            GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP);
+            GPIO.add_event_detect(pin, GPIO.BOTH, callback=self.master_callback)
+
+    def get_state(self):
+        if self.active_high:
+            return GPIO.input(self.pin)
+        else:
+            return not GPIO.input(self.pin)
+
+    """    
+    def callback(self,pin):
+        self.super_cb(pin,self.action)
+      """
 
 
 # -------------------------Controller-------------------------
