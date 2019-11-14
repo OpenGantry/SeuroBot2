@@ -171,13 +171,13 @@ class _Motor(Axis):
     LocalMotorController: object
 
     def __init__(self):
-        if super.Number == 1:
+        if self.Number == 1:
             self.LocalMotorController = MotorController.motor1
-        elif Axis.Number == 2:
+        elif self.Number == 2:
             self.LocalMotorController = MotorController.motor2
-        elif Axis.Number == 3:
+        elif self.Number == 3:
             self.LocalMotorController = MotorController.motor3
-        elif Axis.Number == 4:
+        elif self.Number == 4:
             self.LocalMotorController = MotorController.motor4
         else:
             self.error("Axis must be 1-4 per shield")
