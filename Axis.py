@@ -77,9 +77,9 @@ class Axis:
         self.PositiveTravelDisabled = False
 
         if axis_type == AxisType.Stepper:
-            self.SubAxis = _Stepper(self)
+            self.SubAxis = _Stepper()
         elif axis_type == AxisType.Motor:
-            self.SubAxis = _Motor(self)
+            self.SubAxis = _Motor()
         else:
             self.error("Unknown motor type.")
 
@@ -171,7 +171,7 @@ class _Motor(Axis):
     LocalMotorController: object
 
     def __init__(self):
-        if Axis.Number == 1:
+        if super.Number == 1:
             self.LocalMotorController = MotorController.motor1
         elif Axis.Number == 2:
             self.LocalMotorController = MotorController.motor2
