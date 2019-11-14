@@ -168,14 +168,16 @@ class Axis:
 
 
 class _Motor(Axis):
+    LocalMotorController: object
+
     def __init__(self):
-        if self.Number == 1:
+        if Axis.Number == 1:
             self.LocalMotorController = MotorController.motor1
-        elif self.Number == 2:
+        elif Axis.Number == 2:
             self.LocalMotorController = MotorController.motor2
-        elif self.Number == 3:
+        elif Axis.Number == 3:
             self.LocalMotorController = MotorController.motor3
-        elif self.Number == 4:
+        elif Axis.Number == 4:
             self.LocalMotorController = MotorController.motor4
         else:
             self.error("Axis must be 1-4 per shield")
@@ -188,7 +190,7 @@ class _Motor(Axis):
 
     def command(self,vel):
         if self.Enabled:
-            if vel > self.PositiveCommandMinimum or vel < self.NegativeCommandMinimum:
+            if vel > Axis.PositiveCommandMinimum or vel < Axis.NegativeCommandMinimum:
                 if self.PositiveTravelDisabled and vel <0:
                     if self.NegativeTravelDisabled and vel>0:
                         self.LocalMotorController.throttle=vel
