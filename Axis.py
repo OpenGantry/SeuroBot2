@@ -308,12 +308,13 @@ class _Stepper(Axis):
 
 
 class Feedback(object):
+    '''
     def __init__(self, fb_type, pin_a, pin_b):
         if fb_type==FeedbackType.QuadratureEncoder:
             return _QuadratureEncoder(pin_a,pin_b)
         else:
             Feedback.error("Unknown feedback type.")
-
+    '''
     def __init__(self, pin_a, pin_b):
         self.Count = 0
         self.encA = pin_a
@@ -330,7 +331,7 @@ class Feedback(object):
         print("Feedback - Warning : " + message)
 
 
-class _QuadratureEncoder(Feedback):
+class QuadratureEncoder(Feedback):
     def __init__(self,A,B):
         super.__init__(self,A,B)
         self.Count = 0
