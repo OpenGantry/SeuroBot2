@@ -174,7 +174,7 @@ class _Motor(Axis):
     #LocalMotorController: object
 
     def __init__(self,number):
-        super.__init__(number)
+        super(Axis, self).__init__(number)
         if self.Number == 1:
             self.LocalMotorController = MotorController.motor1
         elif self.Number == 2:
