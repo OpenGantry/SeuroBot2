@@ -55,18 +55,16 @@ class LimitAction(Enum):
 Count = 0
 
 
-
 class Axis(object):
     def __init__(self, number, axis_type, feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
-            if axis_type == AxisType.Stepper:
-                return _Stepper(number)
-            elif axis_type == AxisType.Motor:
-                return  _Motor(number,feedback,pos_lim_switch,neg_lim_switch,home_switch)
-            else:
-                Axis.error("Unknown motor type.")
+        if axis_type == AxisType.Stepper:
+            return _Stepper(number)
+        elif axis_type == AxisType.Motor:
+            return _Motor(number, feedback, pos_lim_switch, neg_lim_switch, home_switch)
+        else:
+            Axis.error("Unknown motor type.")
 
-
-    def __init__(self, number,feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
+    def __init__(self, number, feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
         self.Number = number
         self.UserUnits = 1
         self.DebugMode = True
@@ -83,8 +81,6 @@ class Axis(object):
         self.InCoarsePosition = False
         self.NegativeTravelDisabled = False
         self.PositiveTravelDisabled = False
-
-
 
         if feedback != FeedbackType.none:
             self.FeedbackDevice = feedback
@@ -171,10 +167,10 @@ class Axis(object):
 
 
 class _Motor(Axis):
-    #LocalMotorController: object
+    # LocalMotorController: object
 
-    def __init__(self,number,feedback,pos_lim_switch,neg_lim_switch,home_switch=None,):
-        super().__init__(self, number, AxisType.Motor, feedback,pos_lim_switch, neg_lim_switch, home_switch)
+    def __init__(self, number, feedback, pos_lim_switch, neg_lim_switch, home_switch=None, ):
+        super().__init__(self, number, AxisType.Motor, feedback, pos_lim_switch, neg_lim_switch, home_switch)
         if self.Number == 1:
             self.LocalMotorController = MotorController.motor1
         elif self.Number == 2:
@@ -192,12 +188,12 @@ class _Motor(Axis):
     def move_velocity(self, velocity):
         self.error("Not Implemented")
 
-    def command(self,vel):
+    def command(self, vel):
         if self.Enabled:
             if vel > Axis.PositiveCommandMinimum or vel < Axis.NegativeCommandMinimum:
-                if self.PositiveTravelDisabled and vel <0:
-                    if self.NegativeTravelDisabled and vel>0:
-                        self.LocalMotorController.throttle=vel
+                if self.PositiveTravelDisabled and vel < 0:
+                    if self.NegativeTravelDisabled and vel > 0:
+                        self.LocalMotorController.throttle = vel
 
     def move_distance(self, distance):
         cycles_at_finish = 0
@@ -315,6 +311,7 @@ class Feedback(object):
         else:
             Feedback.error("Unknown feedback type.")
     '''
+
     def __init__(self, pin_a, pin_b):
         self.Count = 0
         self.encA = pin_a
@@ -332,8 +329,8 @@ class Feedback(object):
 
 
 class QuadratureEncoder(Feedback):
-    def __init__(self,A,B):
-        super.__init__(self,A,B)
+    def __init__(self, A, B):
+        super(QuadratureEncoder, self).__init__(self, A, B)
         self.Count = 0
 
         pi = pigpio.pi()
