@@ -57,6 +57,9 @@ Count = 0
 
 class Axis:
 
+    def __init__(self,number):
+        self.Number=number
+
     def __init__(self, number, axis_type, pos_lim_switch, neg_lim_switch, home_switch=None,
                  feedback=FeedbackType.QuadratureEncoder, feedback_a=7, feedback_b=8):
         self.Number = number
@@ -168,10 +171,10 @@ class Axis:
 
 
 class _Motor(Axis):
-    LocalMotorController: object
+    #LocalMotorController: object
 
-    def __init__(self):
-        super.__init__(self)
+    def __init__(self,number):
+        super.__init__(number)
         if self.Number == 1:
             self.LocalMotorController = MotorController.motor1
         elif self.Number == 2:
