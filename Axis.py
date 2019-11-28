@@ -55,10 +55,18 @@ class LimitAction(Enum):
 Count = 0
 
 
+
 class Axis(object):
+    def __init__(self, number, axis_type, feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
+            if axis_type == AxisType.Stepper:
+                return _Stepper(number)
+            elif axis_type == AxisType.Motor:
+                return  _Motor(number,feedback,pos_lim_switch,neg_lim_switch,home_switch)
+            else:
+                Axis.error("Unknown motor type.")
 
 
-    def __init__(self, number, axis_type,feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
+    def __init__(self, number,feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
         self.Number = number
         self.UserUnits = 1
         self.DebugMode = True
@@ -76,12 +84,7 @@ class Axis(object):
         self.NegativeTravelDisabled = False
         self.PositiveTravelDisabled = False
 
-        if axis_type == AxisType.Stepper:
-            self.SubAxis = _Stepper()
-        elif axis_type == AxisType.Motor:
-            self.SubAxis = _Motor(self.Number,feedback,pos_lim_switch,neg_lim_switch,home_switch,feedback)
-        else:
-            self.error("Unknown motor type.")
+
 
         if feedback != FeedbackType.none:
             self.FeedbackDevice = feedback
@@ -304,17 +307,18 @@ class _Stepper(Axis):
 # -------------------------FEEDBACK-------------------------
 
 
-class Feedback:
+class Feedback(object):
+    def __init__(self,type, pin_a, pin_b):
+        if type==FeedbackType.QuadratureEncoder:
+            return _QuadratureEncoder(pin_a,pin_b)
+        else:
+            Feedback.error("Unknown feedback type.")
 
-    def __init__(self, type, pin_a, pin_b):
+    def __init__(self, pin_a, pin_b):
         self.Count = 0
         self.encA = pin_a
         self.encB = pin_b
         self.Count
-        if type == FeedbackType.QuadratureEncoder:
-            self.SubAxis = _QuadratureEncoder()
-        else:
-            self.error("Unknown feedback type.")
 
     @staticmethod
     def error(message):
@@ -327,7 +331,8 @@ class Feedback:
 
 
 class _QuadratureEncoder(Feedback):
-    def __init__(self):
+    def __init__(self,A,B):
+        super.__init__(self,A,B)
         self.Count = 0
 
         pi = pigpio.pi()
