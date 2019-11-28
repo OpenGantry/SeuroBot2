@@ -82,7 +82,7 @@ class Axis:
         if axis_type == AxisType.Stepper:
             self.SubAxis = _Stepper()
         elif axis_type == AxisType.Motor:
-            self.SubAxis = _Motor()
+            self.SubAxis = _Motor(self.Number)
         else:
             self.error("Unknown motor type.")
 
