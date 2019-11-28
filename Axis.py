@@ -58,8 +58,7 @@ Count = 0
 class Axis(object):
 
 
-    def __init__(self, number, axis_type, pos_lim_switch, neg_lim_switch, home_switch=None,
-                 feedback=FeedbackType.QuadratureEncoder, feedback_a=7, feedback_b=8):
+    def __init__(self, number, axis_type,feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
         self.Number = number
         self.UserUnits = 1
         self.DebugMode = True
@@ -80,12 +79,12 @@ class Axis(object):
         if axis_type == AxisType.Stepper:
             self.SubAxis = _Stepper()
         elif axis_type == AxisType.Motor:
-            self.SubAxis = _Motor(self.Number)
+            self.SubAxis = _Motor(self.Number,feedback,pos_lim_switch,neg_lim_switch,home_switch,feedback)
         else:
             self.error("Unknown motor type.")
 
         if feedback != FeedbackType.none:
-            self.FeedbackDevice = Feedback(feedback, feedback_a, feedback_b)
+            self.FeedbackDevice = feedback
 
         self.PositionController = PID(.005, 0.01, 0.005, setpoint=0)
         """
@@ -171,9 +170,8 @@ class Axis(object):
 class _Motor(Axis):
     #LocalMotorController: object
 
-    def __init__(self,number,pos_lim_switch,neg_lim_switch,home_switch=None,feedback=FeedbackType.QuadratureEncoder,feedback_a=7,feedback_b=8):
-        super().__init__(self, number, AxisType.Motor, pos_lim_switch, neg_lim_switch, home_switch,
-                 feedback, feedback_a, feedback_b)
+    def __init__(self,number,feedback,pos_lim_switch,neg_lim_switch,home_switch=None,):
+        super().__init__(self, number, AxisType.Motor, feedback,pos_lim_switch, neg_lim_switch, home_switch)
         if self.Number == 1:
             self.LocalMotorController = MotorController.motor1
         elif self.Number == 2:
