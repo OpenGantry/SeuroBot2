@@ -330,7 +330,7 @@ class Feedback(object):
 
 class QuadratureEncoder(Feedback):
     def __init__(self, A, B):
-        super(QuadratureEncoder, self).__init__(self, A, B)
+        super(QuadratureEncoder, self).__init__(A, B)
         self.Count = 0
 
         pi = pigpio.pi()
