@@ -11,7 +11,7 @@ class Location:
 class Gantry:
     def __init__(self):
         F1=QuadratureEncoder(7,8)
-        self.X_Axis = Axis(4, AxisType.Motor, F1, 3, 4, None)
+        self.X_Axis = Axis(4,AxisType.Motor,F1,3,4)
         self.Y_Axis
         self.Z_Axis
 
