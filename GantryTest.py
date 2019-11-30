@@ -1,9 +1,9 @@
 from Gantry import Gantry
 
 
-S2=Gantry()
+Robot=Gantry()
 
-S2.X_Axis.UserUnits=1
-S2.Y_Axis.UserUnits=1
+Robot.X_Axis.UserUnits=1
+Robot.Y_Axis.UserUnits=1
 
-S2.MoveDeltaXY(200,200)
+Robot.MoveDeltaXY(200, 200)

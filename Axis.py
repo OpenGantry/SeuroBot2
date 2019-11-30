@@ -325,13 +325,15 @@ class QuadratureEncoder(Feedback):
     def __init__(self, A, B):
         super().__init__(A, B)
         self.Count = 0
+        print("A")
 
         pi = pigpio.pi()
         decoder = rotary_encoder.decoder(pi, self.encA, self.encB, self.callback)
-
+        print("B")
     def callback(self, way):
         # global Count
         self.Count += way
+        print("C")
 
 
 class IO:
