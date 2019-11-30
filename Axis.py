@@ -163,7 +163,7 @@ class Motor(Axis):
     # LocalMotorController: object
 
     def __init__(self, number, feedback, pos_lim_switch, neg_lim_switch, home_switch=None, ):
-        super().__init__(number, AxisType.Motor, feedback, pos_lim_switch, neg_lim_switch, home_switch)
+        super().__init__(number, AxisType.Motor, feedback, pos_lim_switch, neg_lim_switch)
         if self.Number == 1:
             self.LocalMotorController = MotorController.motor1
         elif self.Number == 2:
