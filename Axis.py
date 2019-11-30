@@ -138,17 +138,11 @@ class Axis(object):
             else:
                 self.error("Unknown limit action.")
 
-    def move_velocity(self, velocity):
-        return self.SubAxis.move_velocity(velocity)
 
     def stop(self):
         self.move_distance(0)
 
-    def move_distance(self, dist):
-        if self.Enabled:
-            return self.SubAxis.move_distance(dist)
-        else:
-            self.print_status()
+
 
 
     def print_status(self):
