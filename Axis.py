@@ -98,7 +98,7 @@ class Axis(object):
 
         self.NegLimit = IO(neg_lim_switch, True, LimitAction.NegDisable, self.limit_action)
         self.PosLimit = IO(pos_lim_switch, True, LimitAction.PosDisable, self.limit_action)
-        self.HomeSwitch = IO(home_switch, True, LimitAction.none, self.limit_action)
+        #self.HomeSwitch = IO(home_switch, True, LimitAction.none, self.limit_action)
 
     def neg_lim_callback(self, input_pin):
         print("Input on pin", input_pin)
@@ -349,6 +349,7 @@ class IO:
         self.action = action
         if active_high:
             GPIO.setup(pin, GPIO.IN, GPIO.PUD_DOWN)
+
             # GPIO.add_event_detect(pin, GPIO.BOTH, callback=self.callback())
             GPIO.add_event_detect(pin, GPIO.BOTH, master_callback)
 
