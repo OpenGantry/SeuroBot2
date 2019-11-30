@@ -150,8 +150,6 @@ class Axis(object):
         else:
             self.print_status()
 
-    def set_user_units(self, units):
-        self.SubAxis.set_user_units(units)
 
     def print_status(self):
         print("Axis: ", self.Number, " Status: ", self.Enabled, " UserUnits: ", self.UserUnits, "Count: ", Count)
