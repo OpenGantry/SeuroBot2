@@ -43,10 +43,10 @@ class Gantry:
     def move_loc_xy(self, x_loc, y_loc):
         self.X_Axis.move_location(x_loc)
         self.Y_Axis.move_location(y_loc)
-
+    '''
     def move_loc_xy(self, Location):
         self.MoveLocXY(Location.X, Location.Y)
-
+    '''
 
 class GridType(Enum):
     Standard = 0
