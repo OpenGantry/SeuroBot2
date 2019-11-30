@@ -295,6 +295,9 @@ class _Stepper(Axis):
 
 # -------------------------FEEDBACK-------------------------
 
+def callback(way):
+    global Count
+    Count += way
 
 class Feedback(object):
     '''
@@ -325,11 +328,10 @@ class QuadratureEncoder(Feedback):
     def __init__(self, A, B):
         super().__init__(A, B)
         self.Count = 0
-        print("A")
 
         pi = pigpio.pi()
-        decoder = rotary_encoder.decoder(pi, self.encA, self.encB, self.callback)
-        print("B")
+        decoder = rotary_encoder.decoder(pi, self.encA, self.encB, callback)
+
     def callback(self, way):
         # global Count
         self.Count += way
