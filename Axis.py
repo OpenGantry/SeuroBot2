@@ -348,13 +348,13 @@ class IO:
         # self.super_cb=master_callback
         self.action = action
         if active_high:
-            GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+            GPIO.setup(pin, GPIO.IN, GPIO.PUD_DOWN)
             # GPIO.add_event_detect(pin, GPIO.BOTH, callback=self.callback())
-            GPIO.add_event_detect(pin, GPIO.BOTH, callback=master_callback)
+            GPIO.add_event_detect(pin, GPIO.BOTH, master_callback)
 
         else:
-            GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP);
-            GPIO.add_event_detect(pin, GPIO.BOTH, callback=self.master_callback)
+            GPIO.setup(pin, GPIO.IN, GPIO.PUD_UP);
+            GPIO.add_event_detect(pin, GPIO.BOTH, self.master_callback)
 
     def get_state(self):
         if self.active_high:
