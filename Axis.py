@@ -56,6 +56,7 @@ Count = 0
 
 
 class Axis(object):
+    '''
     def __init__(self, number, axis_type, feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
         if axis_type == AxisType.Stepper:
             return _Stepper(number)
@@ -63,7 +64,7 @@ class Axis(object):
             return _Motor(number, feedback, pos_lim_switch, neg_lim_switch, home_switch)
         else:
             Axis.error("Unknown motor type.")
-
+    '''
     def __init__(self, number, feedback, pos_lim_switch, neg_lim_switch, home_switch=None):
         self.Number = number
         self.UserUnits = 1
@@ -162,7 +163,7 @@ class Motor(Axis):
     # LocalMotorController: object
 
     def __init__(self, number, feedback, pos_lim_switch, neg_lim_switch, home_switch=None, ):
-        super().__init__(self, number, AxisType.Motor, feedback, pos_lim_switch, neg_lim_switch, home_switch)
+        super().__init__(number, AxisType.Motor, feedback, pos_lim_switch, neg_lim_switch, home_switch)
         if self.Number == 1:
             self.LocalMotorController = MotorController.motor1
         elif self.Number == 2:
