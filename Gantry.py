@@ -11,9 +11,9 @@ class Location:
 class Gantry:
     def __init__(self):
 
-        self.X_Axis = Axis(4,AxisType.Motor,QuadratureEncoder(7,8),22,27)
-        self.Y_Axis = Axis(3,AxisType.Motor,QuadratureEncoder(5,6),22,27)
-        self.Z_Axis = Axis(1,AxisType.Motor,None,22,27)
+        self.X_Axis = Motor(4,QuadratureEncoder(7,8),22,27)
+        self.Y_Axis = Motor(3,QuadratureEncoder(9,10),22,27)
+        self.Z_Axis = Motor(3,QuadratureEncoder(9,10),22,27)
 
     def get_x(self):
         self.X_Axis.get_loc()

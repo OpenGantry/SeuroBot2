@@ -158,7 +158,7 @@ class Axis(object):
         print("Axis - Warning : " + message)
 
 
-class _Motor(Axis):
+class Motor(Axis):
     # LocalMotorController: object
 
     def __init__(self, number, feedback, pos_lim_switch, neg_lim_switch, home_switch=None, ):
