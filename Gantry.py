@@ -15,34 +15,34 @@ class Gantry:
         self.Y_Axis = Axis(3,AxisType.Motor,QuadratureEncoder(5,6),22,27)
         self.Z_Axis = Axis(1,AxisType.Motor,None,22,27)
 
-    def GetX(self):
-        self.X_Axis.GetLoc()
+    def get_x(self):
+        self.X_Axis.get_loc()
 
-    def GetY(self):
-        self.Y_Axis.GetLoc()
+    def get_y(self):
+        self.Y_Axis.get_loc()
 
-    def GetZ(self):
-        self.Z_Axis.GetLoc()
+    def get_z(self):
+        self.Z_Axis.get_loc()
 
-    def ZeroXY(self):
-        self.X_Axis.Zero()
-        self.Y_Axis.Zero()
+    def zero_xy(self):
+        self.X_Axis.zero()
+        self.Y_Axis.zero()
 
     def MoveDeltaXY(self, xDelta, yDelta):
-        self.X_Axis.MoveDistance(xDelta)
-        self.Y_Axis.MoveDistance(yDelta)
+        self.X_Axis.move_distance(xDelta)
+        self.Y_Axis.move_distance(yDelta)
 
     def MoveDeltaXYZ(self, xDelta, yDelta, zDelta):
-        self.X_Axis.MoveDistance(xDelta)
-        self.Y_Axis.MoveDistance(yDelta)
-        self.Z_Axis.MoveDistance(zDelta)
+        self.X_Axis.move_distance(xDelta)
+        self.Y_Axis.move_distance(yDelta)
+        self.Z_Axis.move_distance(zDelta)
 
     def MoveDeltaZ(self, zDelta):
-        self.Z_Axis.MoveDistance(zDelta)
+        self.Z_Axis.move_distance(zDelta)
 
     def MoveLocXY(self, xLoc, yLoc):
-        self.X_Axis.MoveLocation(xLoc)
-        self.Y_Axis.MoveLocation(yLoc)
+        self.X_Axis.move_loc(xLoc)
+        self.Y_Axis.move_loc(yLoc)
 
     def MoveLocXY(self, Location):
         self.MoveLocXY(Location.X, Location.Y)
