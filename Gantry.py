@@ -41,8 +41,8 @@ class Gantry:
         self.Z_Axis.move_distance(zDelta)
 
     def MoveLocXY(self, xLoc, yLoc):
-        self.X_Axis.move_loc(xLoc)
-        self.Y_Axis.move_loc(yLoc)
+        self.X_Axis.move_location(xLoc)
+        self.Y_Axis.move_location(yLoc)
 
     def MoveLocXY(self, Location):
         self.MoveLocXY(Location.X, Location.Y)

@@ -188,6 +188,10 @@ class Motor(Axis):
                     if self.NegativeTravelDisabled and vel > 0:
                         self.LocalMotorController.throttle = vel
 
+    def move_location(self, loc):
+        target = (loc * self.UserUnits)
+        self.PositionController.setpoint=target
+
     def move_distance(self, distance):
         cycles_at_finish = 0
         target = (distance * self.UserUnits)
