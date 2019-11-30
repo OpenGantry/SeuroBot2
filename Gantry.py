@@ -12,7 +12,7 @@ class Gantry:
     def __init__(self):
 
         self.X_Axis = Axis(4,AxisType.Motor,QuadratureEncoder(7,8),22,27)
-        self.Y_Axis
+        self.Y_Axis = Axis(3,AxisType.Motor,QuadratureEncoder(5,6),22,27)
         self.Z_Axis
 
     def GetX(self):
