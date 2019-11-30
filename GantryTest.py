@@ -6,3 +6,4 @@ Robot.X_Axis.UserUnits = 1
 Robot.Y_Axis.UserUnits = 1
 
 Robot.move_loc_xy(200, 200)
+print("TEST DONE")
