@@ -192,6 +192,8 @@ class Motor(Axis):
 
         control = self.PositionController(Count)
         self.command(control)
+        if self.DebugMode:
+            print("Moving with --- Target: ", target, "Control: ", control, "Count: ", Count)
 
     def move_distance(self, distance):
         cycles_at_finish = 0
