@@ -183,7 +183,7 @@ class Motor(Axis):
 
     def command(self, vel):
         if self.Enabled:
-            if vel > Axis.PositiveCommandMinimum or vel < Axis.NegativeCommandMinimum:
+            if vel > self.PositiveCommandMinimum or vel < self.NegativeCommandMinimum:
                 if self.PositiveTravelDisabled and vel < 0:
                     if self.NegativeTravelDisabled and vel > 0:
                         self.LocalMotorController.throttle = vel
