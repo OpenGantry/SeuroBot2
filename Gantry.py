@@ -28,23 +28,23 @@ class Gantry:
         self.X_Axis.zero()
         self.Y_Axis.zero()
 
-    def MoveDeltaXY(self, xDelta, yDelta):
+    def move_delta_xy(self, xDelta, yDelta):
         self.X_Axis.move_distance(xDelta)
         self.Y_Axis.move_distance(yDelta)
 
-    def MoveDeltaXYZ(self, xDelta, yDelta, zDelta):
+    def move_delta_xyz(self, xDelta, yDelta, zDelta):
         self.X_Axis.move_distance(xDelta)
         self.Y_Axis.move_distance(yDelta)
         self.Z_Axis.move_distance(zDelta)
 
-    def MoveDeltaZ(self, zDelta):
-        self.Z_Axis.move_distance(zDelta)
+    def move_delta_z(self, z_delta):
+        self.Z_Axis.move_distance(z_delta)
 
-    def MoveLocXY(self, xLoc, yLoc):
-        self.X_Axis.move_location(xLoc)
-        self.Y_Axis.move_location(yLoc)
+    def move_loc_xy(self, x_loc, y_loc):
+        self.X_Axis.move_location(x_loc)
+        self.Y_Axis.move_location(y_loc)
 
-    def MoveLocXY(self, Location):
+    def move_loc_xy(self, Location):
         self.MoveLocXY(Location.X, Location.Y)
 
 
