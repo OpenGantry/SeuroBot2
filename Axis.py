@@ -155,7 +155,7 @@ class Axis(object):
         sys.exit()
 
     @staticmethod
-    def warn(self, message):
+    def warn( message):
         print("Axis - Warning : " + message)
 
 
