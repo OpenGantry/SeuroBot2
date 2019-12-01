@@ -143,18 +143,19 @@ class Axis(object):
             else:
                 self.error("Unknown limit action.")
 '''
+
     def stop(self):
         self.move_distance(0)
 
     def print_status(self):
         print("Axis: ", self.Number, " Status: ", self.Enabled, " UserUnits: ", self.UserUnits, "Count: ", Count)
 
-    def error(self,message):
-        print("Axis-",self.Number,"- Error: " + message)
+    def error(self, message):
+        print("Axis-", self.Number, "- Error: " + message)
         sys.exit()
 
-    def warn(self,message):
-        print("Axis-", self.Number,"- Warning: " + message)
+    def warn(self, message):
+        print("Axis-", self.Number, "- Warning: " + message)
 
 
 class Motor(Axis):
@@ -180,11 +181,11 @@ class Motor(Axis):
         self.error("Not Implemented")
 
     def command(self, vel):
-        print (self.PositiveTravelDisabled)
+        print(self.PositiveTravelDisabled)
         if self.Enabled:
             if vel > self.PositiveCommandMinimum or vel < self.NegativeCommandMinimum:
-                if self.PositiveTravelDisabled and vel > 0:
-                    if self.NegativeTravelDisabled and vel < 0:
+                if (self.PositiveTravelDisabled is True) and vel > 0:
+                    if (self.NegativeTravelDisabled is True) and (vel < 0):
                         self.MyMotor.throttle = vel
                     else:
                         self.warn("Motor command negative while negative travel disabled.")
