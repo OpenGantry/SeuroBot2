@@ -104,7 +104,7 @@ class Axis(object):
         # self.NegLimit = IO(neg_lim_switch, True, LimitAction.NegDisable, self.limit_action)
         # self.PosLimit = IO(pos_lim_switch, True, LimitAction.PosDisable, self.limit_action)
         # self.HomeSwitch = IO(home_switch, True, LimitAction.none, self.limit_action)
-
+        '''
     def neg_lim_callback(self, input_pin):
         print("Input on pin", input_pin)
         current_state = self.NegLimit.get()
@@ -142,7 +142,7 @@ class Axis(object):
                 self.PositiveTravelDisabled = current_state
             else:
                 self.error("Unknown limit action.")
-
+'''
     def stop(self):
         self.move_distance(0)
 
@@ -151,12 +151,12 @@ class Axis(object):
 
     @staticmethod
     def error(message):
-        print("Axis - Error: " + message)
+        print("Axis -- Error: " + message)
         sys.exit()
 
     @staticmethod
     def warn( message):
-        print("Axis - Warning : " + message)
+        print("Axis -- Warning: " + message)
 
 
 class Motor(Axis):
@@ -190,7 +190,7 @@ class Motor(Axis):
                     else:
                         self.warn("Motor command negative while negative travel disabled.")
                 else:
-                    self.warn("Motor command positive while negative travel disabled.")
+                    self.warn("Motor command positive while positive travel disabled.")
             else:
                 self.warn("Motor command under minimum.")
         else:
