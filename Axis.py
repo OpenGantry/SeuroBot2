@@ -180,7 +180,7 @@ class Motor(Axis):
         self.error("Not Implemented")
 
     def command(self, vel):
-        print self.PositiveTravelDisabled
+        print (self.PositiveTravelDisabled)
         if self.Enabled:
             if vel > self.PositiveCommandMinimum or vel < self.NegativeCommandMinimum:
                 if self.PositiveTravelDisabled and vel > 0:
