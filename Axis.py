@@ -184,9 +184,13 @@ class Motor(Axis):
 
     def command(self, vel):
         if self.Enabled:
+            print("A")
             if vel > self.PositiveCommandMinimum or vel < self.NegativeCommandMinimum:
+                print("B")
                 if self.PositiveTravelDisabled and vel < 0:
+                    print("C")
                     if self.NegativeTravelDisabled and vel > 0:
+                        print("D")
                         self.MyMotor.throttle = vel
 
     def move_location(self, loc):
