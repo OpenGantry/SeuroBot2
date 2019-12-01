@@ -20,7 +20,6 @@ import time
 import threading
 
 
-
 # -------------------------Axis-------------------------
 class Direction(Enum):
     POS = 1
@@ -90,7 +89,7 @@ class Axis(object):
             self.FeedbackDevice = feedback
 
         self.PositionController = PID(.005, 0.01, 0.005, setpoint=0)
-        #self.Kit = MotorKit(0x6f)
+        # self.Kit = MotorKit(0x6f)
 
         """
         GPIO.setup(pos_lim_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP);
@@ -177,32 +176,36 @@ class Motor(Axis):
             self.error("Axis must be 1-4 per shield")
 
     def stop(self):
-        self.MyMotor.throttle=0
+        self.MyMotor.throttle = 0
 
     def move_velocity(self, velocity):
         self.error("Not Implemented")
 
     def command(self, vel):
         if self.Enabled:
-            print("A")
             if vel > self.PositiveCommandMinimum or vel < self.NegativeCommandMinimum:
-                print("B")
-                if self.PositiveTravelDisabled and vel < 0:
-                    print("C")
-                    if self.NegativeTravelDisabled and vel > 0:
-                        print("D")
+                if self.PositiveTravelDisabled and vel > 0:
+                    if self.NegativeTravelDisabled and vel < 0:
                         self.MyMotor.throttle = vel
+                    else:
+                        self.warn("Motor command negative while negative travel disabled.")
+                else:
+                    self.warn("Motor command positive while negative travel disabled.")
+            else:
+                self.warn("Motor command under minimum.")
+        else:
+            self.warn("Motor command while disabled.")
 
     def move_location(self, loc):
         target = (loc * self.UserUnits)
 
         self.PositionController.setpoint = target
-        done=False
+        done = False
         while not done:
             control = self.PositionController(Count)
             self.command(control)
             if self.DebugMode:
-                print("Axis-",self.Number," -- Target: ", target, "Control: ", control, "Count: ", Count)
+                print("Axis-", self.Number, " -- Target: ", target, "Control: ", control, "Count: ", Count)
 
     def move_distance(self, distance):
         cycles_at_finish = 0
@@ -233,8 +236,8 @@ class Motor(Axis):
                 print("Moving with --- Target: ", target, "Control: ", control, "Count: ", Count)
 
         if self.ReleaseOnFinish:
-            MotorController.stepper1.release()
-            MotorController.stepper2.release()
+            kit.stepper1.release()
+            kit.stepper2.release()
 
 
 class _Stepper(Axis):
