@@ -7,6 +7,8 @@ from enum import Enum
 from simple_pid import PID
 from adafruit_motor import stepper
 from adafruit_motorkit import MotorKit
+from adafruit_motorkit import MotorKit
+
 import time
 import sys
 from enum import Enum
@@ -17,7 +19,6 @@ import RPi.GPIO as GPIO
 import time
 import threading
 
-MotorController = MotorKit(0x6f)
 
 
 # -------------------------Axis-------------------------
@@ -53,6 +54,7 @@ class LimitAction(Enum):
 
 
 Count = 0
+kit = MotorKit(0x6f)
 
 
 class Axis(object):
@@ -88,6 +90,8 @@ class Axis(object):
             self.FeedbackDevice = feedback
 
         self.PositionController = PID(.005, 0.01, 0.005, setpoint=0)
+        #self.Kit = MotorKit(0x6f)
+
         """
         GPIO.setup(pos_lim_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP);
         GPIO.setup(pos_lim_switch, GPIO.IN, pull_up_down=GPIO.PUD_UP);
@@ -162,18 +166,18 @@ class Motor(Axis):
     def __init__(self, number, feedback, pos_lim_switch, neg_lim_switch, home_switch=None, ):
         super().__init__(number, AxisType.Motor, feedback, pos_lim_switch, neg_lim_switch)
         if self.Number == 1:
-            self.LocalMotorController = MotorController.motor1
+            self.MyMotor = kit.motor1
         elif self.Number == 2:
-            self.LocalMotorController = MotorController.motor2
+            self.MyMotor = kit.motor2
         elif self.Number == 3:
-            self.LocalMotorController = MotorController.motor3
+            self.MyMotor = kit.motor3
         elif self.Number == 4:
-            self.LocalMotorController = MotorController.motor4
+            self.MyMotor = kit.motor4
         else:
             self.error("Axis must be 1-4 per shield")
 
     def stop(self):
-        self.LocalMotorController.throttle = 0
+        self.MyMotor.throttle=0
 
     def move_velocity(self, velocity):
         self.error("Not Implemented")
@@ -183,7 +187,7 @@ class Motor(Axis):
             if vel > self.PositiveCommandMinimum or vel < self.NegativeCommandMinimum:
                 if self.PositiveTravelDisabled and vel < 0:
                     if self.NegativeTravelDisabled and vel > 0:
-                        self.LocalMotorController.throttle = vel
+                        self.MyMotor.throttle = vel
 
     def move_location(self, loc):
         target = (loc * self.UserUnits)
@@ -194,7 +198,7 @@ class Motor(Axis):
             control = self.PositionController(Count)
             self.command(control)
             if self.DebugMode:
-                print("Moving with --- Target: ", target, "Control: ", control, "Count: ", Count)
+                print("Axis-",self.Number," -- Target: ", target, "Control: ", control, "Count: ", Count)
 
     def move_distance(self, distance):
         cycles_at_finish = 0
