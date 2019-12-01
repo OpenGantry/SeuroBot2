@@ -149,14 +149,12 @@ class Axis(object):
     def print_status(self):
         print("Axis: ", self.Number, " Status: ", self.Enabled, " UserUnits: ", self.UserUnits, "Count: ", Count)
 
-    @staticmethod
-    def error(message):
-        print("Axis -- Error: " + message)
+    def error(self,message):
+        print("Axis-",self.Number,"- Error: " + message)
         sys.exit()
 
-    @staticmethod
-    def warn( message):
-        print("Axis -- Warning: " + message)
+    def warn(self,message):
+        print("Axis-", self.Number,"- Warning: " + message)
 
 
 class Motor(Axis):
@@ -205,7 +203,7 @@ class Motor(Axis):
             control = self.PositionController(Count)
             self.command(control)
             if self.DebugMode:
-                print("Axis-", self.Number, " -- Target: ", target, "Control: ", control, "Count: ", Count)
+                print("Axis-", self.Number, "-- Target: ", target, "Control: ", control, "Count: ", Count)
 
     def move_distance(self, distance):
         cycles_at_finish = 0
